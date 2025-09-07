@@ -1,4 +1,4 @@
-package com.example.studentManagement.domain;
+package com.example.studentManagement.student;
 
 public class Student {
     private Integer index;
