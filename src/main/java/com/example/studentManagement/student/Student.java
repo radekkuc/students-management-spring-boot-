@@ -1,11 +1,19 @@
 package com.example.studentManagement.student;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "student")
 public class Student {
+    @Id
     private Integer index;
     private String name;
     private Integer age;
     private String email;
 
+    public Student() {}
     public Student(Integer index, String name, Integer age, String email) {
         this.index = index;
         this.name = name;
