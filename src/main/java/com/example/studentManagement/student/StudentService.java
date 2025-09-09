@@ -6,11 +6,13 @@ import java.util.List;
 
 @Service
 public class StudentService {
+    private StudentRepository studentRepository;
 
-    public List<Student> getStudents(){
-        return List.of(
-                new Student(412796 ,"Radoslaw Kuc", 23, "radekkuc5@gmail.com")
-        );
+    public StudentService(StudentRepository studentRepository){
+        this.studentRepository = studentRepository;
     }
 
+    public List<Student> getStudents(){
+        return studentRepository.findAll();
+    }
 }
