@@ -20,11 +20,11 @@ public class StudentService {
     }
 
     public Optional<Student> getStudentsByEmail(String email){
-        return studentRepository.getStudentsByEmail(email);
+        return studentRepository.getStudentByEmail(email);
     }
 
     public void insertStudent(Student student){
-        if(studentRepository.getStudentsByEmail(student.getEmail()).isEmpty()){
+        if(studentRepository.getStudentByEmail(student.getEmail()).isPresent()){
             throw new RuntimeException("Student with the same email exists, choose different email");
         }
         studentRepository.save(student);
