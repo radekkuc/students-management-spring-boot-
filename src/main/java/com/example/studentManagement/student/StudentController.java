@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/api/students")
@@ -21,6 +22,12 @@ public class StudentController {
     public List<Student> getStudents(){
         return studentService.getStudents();
     }
+
+    @GetMapping("/{email}")
+    public Optional<Student> getStudentById(@PathVariable String email){
+        return studentService.getStudentByEmail(email);
+    }
+
 
     @PostMapping
     public void insertStudent(@RequestBody Student student){

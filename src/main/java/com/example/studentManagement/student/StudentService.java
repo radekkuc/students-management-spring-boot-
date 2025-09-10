@@ -19,7 +19,7 @@ public class StudentService {
         return studentRepository.findAll();
     }
 
-    public Optional<Student> getStudentsByEmail(String email){
+    public Optional<Student> getStudentByEmail(String email){
         return studentRepository.getStudentByEmail(email);
     }
 
@@ -29,4 +29,5 @@ public class StudentService {
         }
         studentRepository.save(student);
     }
+
 }
