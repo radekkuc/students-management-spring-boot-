@@ -22,9 +22,8 @@ public class Student {
         this.email = email;
     }
 
-    public Student(Integer index, String name) {
+    public Student(Integer index) {
         this.index = index;
-        this.name = name;
     }
 
     public Integer getIndex() {

@@ -43,4 +43,16 @@ public class StudentService {
         }
         studentRepository.save(student);
     }
+
+    public void changeStudentData(Integer index, Student student){
+        Student student_db = studentRepository.getStudentByIndex(index)
+                .orElseThrow(() -> new RuntimeException("Student with given index doesnt exist"));
+
+        student_db.setAge(student.getAge());
+        student_db.setEmail(student.getEmail());
+        student_db.setName(student.getName());
+
+        studentRepository.save(student_db);
+    }
+
 }
