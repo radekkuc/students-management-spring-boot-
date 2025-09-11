@@ -43,4 +43,7 @@ public class StudentController {
         System.out.println("Received student: " + student);
         studentService.insertStudent(student);
     }
+
+    // Try to add a post endpoint which will allow to provide a student with only index provided
+    // After this implement put endpoint to correct data of a student
 }
