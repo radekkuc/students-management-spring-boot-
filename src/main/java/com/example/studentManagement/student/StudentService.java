@@ -23,6 +23,13 @@ public class StudentService {
         return studentRepository.getStudentByEmail(email);
     }
 
+    public Optional<Student> getStudentByIndex(Integer index){
+//        if(studentRepository.getStudentByIndex(index).isEmpty()){
+//            throw new RuntimeException("Student with given index doesnt exist");
+//        }
+        return studentRepository.getStudentByIndex(index);
+    }
+
     public void removeStudentByIndex(Integer index){
         if(studentRepository.getStudentByIndex(index).isEmpty()){
             throw new RuntimeException("Student with given index doesnt exist");
