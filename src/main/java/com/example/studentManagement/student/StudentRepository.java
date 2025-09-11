@@ -13,5 +13,6 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
     @Query("SELECT s FROM Student s WHERE s.email = :email")
     public Optional<Student> getStudentByEmail(String email);
 
+    public Optional<Student> getStudentByIndex(Integer index);
 
 }

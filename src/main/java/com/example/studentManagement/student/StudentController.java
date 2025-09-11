@@ -24,10 +24,14 @@ public class StudentController {
     }
 
     @GetMapping("/{email}")
-    public Optional<Student> getStudentById(@PathVariable String email){
+    public Optional<Student> getStudentByEmail(@PathVariable String email){
         return studentService.getStudentByEmail(email);
     }
 
+    @DeleteMapping("/{index}")
+    public void removeStudentByIndex(@PathVariable Integer index){
+        studentService.removeStudentByIndex(index);
+    }
 
     @PostMapping
     public void insertStudent(@RequestBody Student student){

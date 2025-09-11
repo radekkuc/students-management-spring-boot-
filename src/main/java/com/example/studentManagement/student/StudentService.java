@@ -23,11 +23,17 @@ public class StudentService {
         return studentRepository.getStudentByEmail(email);
     }
 
+    public void removeStudentByIndex(Integer index){
+        if(studentRepository.getStudentByIndex(index).isEmpty()){
+            throw new RuntimeException("Student with given index doesnt exist");
+        }
+        studentRepository.delete(studentRepository.getStudentByIndex(index).get());
+    }
+
     public void insertStudent(Student student){
         if(studentRepository.getStudentByEmail(student.getEmail()).isPresent()){
             throw new RuntimeException("Student with the same email exists, choose different email");
         }
         studentRepository.save(student);
     }
-
 }
