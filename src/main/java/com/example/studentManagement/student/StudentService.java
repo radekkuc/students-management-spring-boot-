@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -44,7 +45,7 @@ public class StudentService {
         studentRepository.save(student);
     }
 
-    public void changeStudentData(Integer index, Student student){
+    public void changeAllStudentData(Integer index, Student student){
         Student student_db = studentRepository.getStudentByIndex(index)
                 .orElseThrow(() -> new RuntimeException("Student with given index doesnt exist"));
 
@@ -55,4 +56,20 @@ public class StudentService {
         studentRepository.save(student_db);
     }
 
+    public void updateStudentData(Integer index, Map<String, Object> update){
+        Student student = studentRepository.getStudentByIndex(index)
+                .orElseThrow(() -> new RuntimeException("Student with provided index does not exist"));
+
+        if(update.containsKey("name")){
+            student.setName((String) update.get("name"));
+        }
+        if(update.containsKey("age")){
+            student.setAge((Integer) update.get("age"));
+        }
+        if(update.containsKey("email")){
+            student.setEmail((String) update.get("email"));
+        }
+
+        studentRepository.save(student);
+    }
 }

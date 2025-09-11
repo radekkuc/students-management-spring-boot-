@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -45,6 +46,11 @@ public class StudentController {
 
     @PutMapping("/{index}")
     public void changeStudentData(@PathVariable Integer index, @RequestBody Student student){
-        studentService.changeStudentData(index, student);
+        studentService.changeAllStudentData(index, student);
+    }
+
+    @PatchMapping("/{index}")
+    public void updateStudentData(@PathVariable Integer index, @RequestBody Map<String, Object> updates){
+        studentService.updateStudentData(index, updates);
     }
 }
