@@ -25,12 +25,12 @@ public class StudentController {
     }
 
     @GetMapping("/email/{email}")
-    public Optional<Student> getStudentByEmail(@PathVariable String email){
+    public Student getStudentByEmail(@PathVariable String email){
         return studentService.getStudentByEmail(email);
     }
 
     @GetMapping("/index/{index}")
-    public Optional<Student> getStudentByIndex(@PathVariable Integer index){
+    public Student getStudentByIndex(@PathVariable Integer index){
         return studentService.getStudentByIndex(index);
     }
 

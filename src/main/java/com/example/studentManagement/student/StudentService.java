@@ -20,22 +20,19 @@ public class StudentService {
         return studentRepository.findAll();
     }
 
-    public Optional<Student> getStudentByEmail(String email){
-        return studentRepository.getStudentByEmail(email);
+    public Student getStudentByEmail(String email){
+        return studentRepository.getStudentByEmail(email)
+                .orElseThrow(() ->  new RuntimeException("Student with given email does not exist"));
     }
 
-    public Optional<Student> getStudentByIndex(Integer index){
-//        if(studentRepository.getStudentByIndex(index).isEmpty()){
-//            throw new RuntimeException("Student with given index doesnt exist");
-//        }
-        return studentRepository.getStudentByIndex(index);
+    public Student getStudentByIndex(Integer index){
+        return studentRepository.getStudentByIndex(index)
+                .orElseThrow(() -> new RuntimeException("Student with given index does not exist"));
     }
 
     public void removeStudentByIndex(Integer index){
-        if(studentRepository.getStudentByIndex(index).isEmpty()){
-            throw new RuntimeException("Student with given index doesnt exist");
-        }
-        studentRepository.delete(studentRepository.getStudentByIndex(index).get());
+        studentRepository.delete(studentRepository.getStudentByIndex(index)
+                .orElseThrow(() -> new RuntimeException("Student with given index does not exist")));
     }
 
     public void insertStudent(Student student){
@@ -47,7 +44,7 @@ public class StudentService {
 
     public void changeAllStudentData(Integer index, Student student){
         Student student_db = studentRepository.getStudentByIndex(index)
-                .orElseThrow(() -> new RuntimeException("Student with given index doesnt exist"));
+                .orElseThrow(() -> new RuntimeException("Student with given index does not exist"));
 
         student_db.setAge(student.getAge());
         student_db.setEmail(student.getEmail());
