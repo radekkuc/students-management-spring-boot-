@@ -4,11 +4,13 @@ import java.time.LocalDateTime;
 
 public class ApiError {
     private int status;
+    private String error;
     private String message;
     private LocalDateTime timestamp;
 
-    public ApiError(int status, String message){
+    public ApiError(int status, String error, String message){
         this.status = status;
+        this.error = error;
         this.message = message;
         this.timestamp = LocalDateTime.now();
     }
@@ -19,6 +21,14 @@ public class ApiError {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
     }
 
     public String getMessage() {
