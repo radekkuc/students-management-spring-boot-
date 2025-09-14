@@ -19,9 +19,9 @@ public class ApiExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
     }
 
-    @ExceptionHandler(StudentDuplicateEmailException.class)
+    @ExceptionHandler(StudentEmailNotFoundException.class)
     public ResponseEntity<ApiError> handleEmailNotFound(StudentEmailNotFoundException ex){
-        ApiError error = new ApiError(409, "Conflict", ex.getMessage());
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
+        ApiError error = new ApiError(404, "Not Found", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 }

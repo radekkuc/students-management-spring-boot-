@@ -1,6 +1,7 @@
 package com.example.studentManagement.student;
 
 import com.example.studentManagement.student.exception.StudentDuplicateEmailException;
+import com.example.studentManagement.student.exception.StudentEmailNotFoundException;
 import com.example.studentManagement.student.exception.StudentNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ public class StudentService {
 
     public Student getStudentByEmail(String email){
         return studentRepository.getStudentByEmail(email)
-                .orElseThrow(() ->  new StudentDuplicateEmailException(email));
+                .orElseThrow(() ->  new StudentEmailNotFoundException(email));
     }
 
     public Student getStudentByIndex(Integer index){
