@@ -1,14 +1,14 @@
 package com.example.studentManagement.student;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "student")
 public class Student {
     @Id
-    private Integer index;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private Integer studentIndex;
     private String name;
     private Integer age;
     private String email;
@@ -16,22 +16,22 @@ public class Student {
     public Student() {}
 
     public Student(Integer index, String name, Integer age, String email) {
-        this.index = index;
+        this.studentIndex = index;
         this.name = name;
         this.age = age;
         this.email = email;
     }
 
     public Student(Integer index) {
-        this.index = index;
+        this.studentIndex = index;
     }
 
     public Integer getIndex() {
-        return index;
+        return studentIndex;
     }
 
     public void setIndex(Integer index) {
-        this.index = index;
+        this.studentIndex = index;
     }
 
     public String getName() {
@@ -61,7 +61,7 @@ public class Student {
     @Override
     public String toString() {
         return "Student{" +
-                "index=" + index +
+                "index=" + studentIndex +
                 ", name='" + name + '\'' +
                 ", age=" + age +
                 ", email='" + email + '\'' +

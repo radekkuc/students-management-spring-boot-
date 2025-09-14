@@ -1,6 +1,7 @@
 package com.example.studentManagement.student;
 
 import com.example.studentManagement.student.exception.StudentDuplicateEmailException;
+import com.example.studentManagement.student.exception.StudentDuplicateIndexException;
 import com.example.studentManagement.student.exception.StudentEmailNotFoundException;
 import com.example.studentManagement.student.exception.StudentNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @Service
 public class StudentService {
@@ -29,12 +29,12 @@ public class StudentService {
     }
 
     public Student getStudentByIndex(Integer index){
-        return studentRepository.getStudentByIndex(index)
+        return studentRepository.getStudentByStudentIndex(index)
                 .orElseThrow(() -> new StudentNotFoundException(index));
     }
 
     public void removeStudentByIndex(Integer index){
-        studentRepository.delete(studentRepository.getStudentByIndex(index)
+        studentRepository.delete(studentRepository.getStudentByStudentIndex(index)
                 .orElseThrow(() -> new StudentNotFoundException(index)));
     }
 
@@ -42,11 +42,16 @@ public class StudentService {
         if(studentRepository.getStudentByEmail(student.getEmail()).isPresent()){
             throw new StudentDuplicateEmailException(student.getEmail());
         }
+
+        if(studentRepository.getStudentByStudentIndex(student.getIndex()).isPresent()){
+            throw new StudentDuplicateIndexException(student.getIndex());
+        }
+
         studentRepository.save(student);
     }
 
     public void changeAllStudentData(Integer index, Student student){
-        Student student_db = studentRepository.getStudentByIndex(index)
+        Student student_db = studentRepository.getStudentByStudentIndex(index)
                 .orElseThrow(() -> new StudentNotFoundException(index));
 
         student_db.setAge(student.getAge());
@@ -57,7 +62,7 @@ public class StudentService {
     }
 
     public void updateStudentData(Integer index, Map<String, Object> update){
-        Student student = studentRepository.getStudentByIndex(index)
+        Student student = studentRepository.getStudentByStudentIndex(index)
                 .orElseThrow(() -> new StudentNotFoundException(index));
 
         if(update.containsKey("name")){

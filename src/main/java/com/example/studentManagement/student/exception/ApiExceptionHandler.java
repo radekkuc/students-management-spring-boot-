@@ -24,4 +24,11 @@ public class ApiExceptionHandler {
         ApiError error = new ApiError(404, "Not Found", ex.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
+
+    @ExceptionHandler(StudentDuplicateIndexException.class)
+    public ResponseEntity<ApiError> handleDuplicateIndex(StudentDuplicateIndexException ex){
+        ApiError error = new ApiError(409, "Conflict", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
+    }
+
 }
