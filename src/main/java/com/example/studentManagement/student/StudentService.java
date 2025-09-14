@@ -1,5 +1,7 @@
 package com.example.studentManagement.student;
 
+import com.example.studentManagement.student.exception.StudentDuplicateEmailException;
+import com.example.studentManagement.student.exception.StudentNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,29 +24,29 @@ public class StudentService {
 
     public Student getStudentByEmail(String email){
         return studentRepository.getStudentByEmail(email)
-                .orElseThrow(() ->  new RuntimeException("Student with given email does not exist"));
+                .orElseThrow(() ->  new StudentDuplicateEmailException(email));
     }
 
     public Student getStudentByIndex(Integer index){
         return studentRepository.getStudentByIndex(index)
-                .orElseThrow(() -> new RuntimeException("Student with given index does not exist"));
+                .orElseThrow(() -> new StudentNotFoundException(index));
     }
 
     public void removeStudentByIndex(Integer index){
         studentRepository.delete(studentRepository.getStudentByIndex(index)
-                .orElseThrow(() -> new RuntimeException("Student with given index does not exist")));
+                .orElseThrow(() -> new StudentNotFoundException(index)));
     }
 
     public void insertStudent(Student student){
         if(studentRepository.getStudentByEmail(student.getEmail()).isPresent()){
-            throw new RuntimeException("Student with the same email exists, choose different email");
+            throw new StudentDuplicateEmailException(student.getEmail());
         }
         studentRepository.save(student);
     }
 
     public void changeAllStudentData(Integer index, Student student){
         Student student_db = studentRepository.getStudentByIndex(index)
-                .orElseThrow(() -> new RuntimeException("Student with given index does not exist"));
+                .orElseThrow(() -> new StudentNotFoundException(index));
 
         student_db.setAge(student.getAge());
         student_db.setEmail(student.getEmail());
@@ -55,7 +57,7 @@ public class StudentService {
 
     public void updateStudentData(Integer index, Map<String, Object> update){
         Student student = studentRepository.getStudentByIndex(index)
-                .orElseThrow(() -> new RuntimeException("Student with provided index does not exist"));
+                .orElseThrow(() -> new StudentNotFoundException(index));
 
         if(update.containsKey("name")){
             student.setName((String) update.get("name"));

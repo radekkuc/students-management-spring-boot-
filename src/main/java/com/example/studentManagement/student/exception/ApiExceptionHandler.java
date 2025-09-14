@@ -8,13 +8,19 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ApiExceptionHandler {
     @ExceptionHandler(StudentNotFoundException.class)
-    public ResponseEntity<ApiError> handleNotFound(StudentNotFoundException ex){
+    public ResponseEntity<ApiError> handleIdNotFound(StudentNotFoundException ex){
         ApiError error = new ApiError(404, "Not Found", ex.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 
     @ExceptionHandler(StudentDuplicateEmailException.class)
     public ResponseEntity<ApiError> handleDuplicateEmail(StudentDuplicateEmailException ex){
+        ApiError error = new ApiError(409, "Conflict", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
+    }
+
+    @ExceptionHandler(StudentDuplicateEmailException.class)
+    public ResponseEntity<ApiError> handleEmailNotFound(StudentEmailNotFoundException ex){
         ApiError error = new ApiError(409, "Conflict", ex.getMessage());
         return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
     }
