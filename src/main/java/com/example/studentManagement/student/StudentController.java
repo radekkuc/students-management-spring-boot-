@@ -54,3 +54,4 @@ public class StudentController {
         studentService.updateStudentData(index, updates);
     }
 }
+
