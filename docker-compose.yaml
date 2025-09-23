@@ -1,0 +1,23 @@
+services:
+  db:
+    image: postgres:16 # There we pull an official image
+    environment:  # Needed environmental variables
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: student
+    ports: 
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data # Path for it is just a recommended path 
+  app:
+    build: . # Telling where to look for dockerfile for this service
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/student
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 1234
+    ports:
+      - 8081:8081 # mapping port on local device to port in our app
+    depends_on:
+      - db
+
+
