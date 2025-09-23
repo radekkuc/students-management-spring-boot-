@@ -16,8 +16,12 @@ services:
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: 1234
     ports:
-      - 8081:8081 # mapping port on local device to port in our app
-    depends_on:
+      - 8081:8081 # Mapping port on local device to port in our app
+    depends_on: # There we provide a list because docker expects it here
       - db
 
+volumes: # This must be defined there so app service will know what is pgdata, also at top level we need to provide map
+  pgdata:
 
+# docker compose up --build # First build and after every change 
+# docker compose up # Running compose 
