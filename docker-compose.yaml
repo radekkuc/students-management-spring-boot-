@@ -16,7 +16,7 @@ services:
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: 1234
     ports:
-      - 8081:8081 # Mapping port on local device to port in our app
+      - "8081:8081" # Mapping port on local device to port in our app / better to use Strings  
     depends_on: # There we provide a list because docker expects it here
       - db
 
